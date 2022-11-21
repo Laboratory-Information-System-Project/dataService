@@ -1,0 +1,3 @@
+GET /data-service/patient/1
+Content-Type: application/json
+Host: localhost:53374

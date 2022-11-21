@@ -37,7 +37,7 @@ public class KafkaConsumer {
         List<String> keys = payload.keySet().stream().collect(Collectors.toList());
         List<Object> values = payload.values().stream().collect(Collectors.toList());
 
-        testMapper.insertTable(tableName, keys, values);
+        // testMapper.insertTable(tableName, keys, values);
 
     }
 
