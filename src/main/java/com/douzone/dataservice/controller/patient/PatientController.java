@@ -17,7 +17,7 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    @GetMapping("/patient/{patientNo}")
+    @GetMapping("/patient/info/{patientNo}")
     public List<PatientInfoDto> getPatientInfo(@PathVariable Long patientNo){
         return patientService.getPatientInfoByPatientNo(patientNo);
     }

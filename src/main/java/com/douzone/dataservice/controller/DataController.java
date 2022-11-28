@@ -3,7 +3,7 @@ package com.douzone.dataservice.controller;
 import com.douzone.dataservice.domain.collectdomain.CollectDomainDTO;
 import com.douzone.dataservice.domain.patientdomain.PatientDomainDTO;
 import com.douzone.dataservice.service.collectservice.CollectService;
-import com.douzone.dataservice.service.patientservice.PatientService;
+import com.douzone.dataservice.service.patient.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

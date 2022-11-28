@@ -42,9 +42,6 @@ public class KafkaConsumer {
     //     }
     // }
 
-
-    private final TestMapper testMapper;
-
     @KafkaListener(topics = "insertTable")
     public void insert(@Payload String kafkaMessage,
                        @Headers MessageHeaders messageHeaders){

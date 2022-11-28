@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.douzone.dataservice.mapper.PatientMapper">
+<mapper namespace="com.douzone.dataservice.mapper.patientmapper.PatientMapper">
     <select id="patientAll" resultType="com.douzone.dataservice.domain.PatientDTO">
         SELECT DISTINCT PT.PATIENT_NO, PT.PATIENT_NAME, PT.patient_phonenumber
         FROM VISIT AS V, PRESCRIBE AS P, INSPECTION_TYPE AS I, VESSEL AS VL, SAMPLE_TYPE AS S, COLLECTING AS C, REGISTER AS R, CONCLUSION AS CN, PATIENT AS PT
@@ -16,7 +16,7 @@
         AND PT.PATIENT_NO = V.PATIENT_NO
         AND R.REGISTER_CODE = CN.REGISTER_CODE
         order by R.REGISTER_DT DESC;
-
+    </select>
     <select id="findPatientInfoByPatientNo" resultType="com.douzone.dataservice.domain.PatientInfoDto">
         select distinct 환자정보.patient_no, 환자정보.patient_name, 환자정보.patient_age, 환자정보.patient_blood_type,
                환자정보.patient_height, 환자정보.patient_weight, 환자정보.patient_address, 환자정보.patient_phonenumber,
@@ -36,5 +36,17 @@
                                              where 내원.visit_code = 처방.visit_code) 내원정보
                                            on 환자.patient_no
                 where 환자.patient_no = 내원정보.patient_no and 환자.patient_no = #{patientNo}) 환자정보 on 환자정보.doctor_id = 유저정보.user_id;
+    </select>
+
+    <select id="patientData" resultType="com.douzone.dataservice.domain.patientdomain.PatientDomainDTO">
+        select
+            patient.patient_no,patient_name,patient_age,patient_blood_type,
+            patient_height,patient_weight,patient_address,patient_phonenumber,
+            patient_resident_number,patient_gender
+        from collecting
+                 join prescribe on collecting.prescribe_code = prescribe.prescribe_code
+                 join visit on prescribe.visit_code = visit.visit_code
+                 join patient on visit.patient_no = patient.patient_no
+        where collecting.barcode = #{barcode};
     </select>
 </mapper>
