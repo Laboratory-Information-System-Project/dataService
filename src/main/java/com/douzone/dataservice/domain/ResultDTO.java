@@ -5,8 +5,11 @@ import java.sql.Date;
 
 @Data
 public class ResultDTO {
-    private String registerDt;
+    private int resultNo;
     private int patientNo;
+    private String patientName;
+    private String patientPhoneNumber;
+    private String registerDt;
     private String sampleName;
     private String prescribeDt;
     private String inspectionName;
@@ -14,7 +17,6 @@ public class ResultDTO {
     private int baseline;
     private String unit;
     private String note;
-    private String sampleNote;
 }
 
 

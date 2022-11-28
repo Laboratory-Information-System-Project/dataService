@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SmsRequestDTO {
+    private String subject;
     private String type;
     private String contentType;
     private String countryCode;

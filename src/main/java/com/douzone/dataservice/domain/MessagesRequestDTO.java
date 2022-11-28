@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessagesRequestDTO {
+    private String subject;
     private String to;
     private String content;
 }
