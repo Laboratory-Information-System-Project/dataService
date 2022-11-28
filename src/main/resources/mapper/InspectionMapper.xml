@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.douzone.dataservice.mapper.InspectionMapper">
+
+    <select id="getTodayRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO">
+        select *
+        from register
+        where left(register_dt, 10) = left(now(), 10)
+        ORDER BY register_dt DESC
+    </select>
+
+    <select id="getSearchRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO" parameterType="com.douzone.dataservice.domain.SearchDTO">
+        select *
+        from register
+        where left(register_dt, 10) between #{stDate} and #{endDate}
+        <if test="barcode != null">
+            and barcode=#{barcode}
+        </if>
+        ORDER BY register_dt DESC
+    </select>
+
+    <select id="getSearchInspectionTypeMapper" resultType="com.douzone.dataservice.domain.InspectionTypeDTO">
+        select *
+        from inspection_type
+        where order_code= (select p.order_code
+                           from collecting as c left join prescribe as p on c.prescribe_code = p.prescribe_code
+                           where barcode=${barcode});
+    </select>
+
+    <select id="getSelectConclusionMapper" resultType="com.douzone.dataservice.domain.ConclusionDTO" parameterType="com.douzone.dataservice.domain.SearchDTO">
+        select *
+        from conclusion as c left join register as r on c.register_code = r.register_code
+        where r.barcode = #{barcode}
+        ORDER BY c.inspection_code ASC
+    </select>
+
+</mapper>

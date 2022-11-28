@@ -1,21 +1,27 @@
 server:
-  port: 8003
+  port: 8004
 
 spring:
   application:
     name: data-service
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.189:33306/data
+    url: jdbc:mysql://192.168.40.12:33306/data?allowMultiQueries=true
+#    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
     username: scott
     password: tiger
-
+  
   api:
     naver-sms-service-id: ncp:sms:kr:296262926384:lis_system
     naver-sms-access-key: sRz0kltEbtYeoOKw5P0B
     naver-sms-secret-key: npLR46JcWEq9Q6Gm6PSIaJZbqzMga50VoVicUYLb
     naver-caller-line: 01046766654
+
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
 
 eureka:
   instance:
@@ -26,17 +32,17 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-greeting:
-  message: Welcome to the Simple Ecommerce
-
 management:
   endpoints:
     web:
       exposure:
         include: refresh, health, beans, busrefresh
 
+#token:
+#  expireTime: 86400000
+#  secret: user_token
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/**/*.xml
-
+#  secret: user_token
