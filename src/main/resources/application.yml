@@ -1,1 +1,42 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: data-service
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.189:33306/data
+    username: scott
+    password: tiger
+
+  api:
+    naver-sms-service-id: ncp:sms:kr:296262926384:lis_system
+    naver-sms-access-key: sRz0kltEbtYeoOKw5P0B
+    naver-sms-secret-key: npLR46JcWEq9Q6Gm6PSIaJZbqzMga50VoVicUYLb
+    naver-caller-line: 01046766654
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+greeting:
+  message: Welcome to the Simple Ecommerce
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/**/*.xml
 

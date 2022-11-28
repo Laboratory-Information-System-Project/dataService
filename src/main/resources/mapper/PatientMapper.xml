@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.douzone.dataservice.mapper.PatientMapper">
+    <select id="patientAll" resultType="com.douzone.dataservice.domain.PatientDTO">
+        SELECT DISTINCT PT.PATIENT_NO, PT.PATIENT_NAME, PT.patient_phonenumber
+        FROM VISIT AS V, PRESCRIBE AS P, INSPECTION_TYPE AS I, VESSEL AS VL, SAMPLE_TYPE AS S, COLLECTING AS C, REGISTER AS R, CONCLUSION AS CN, PATIENT AS PT
+        WHERE V.PATIENT_NO = #{data}
+        AND V.VISIT_CODE = P.VISIT_CODE
+        AND P.INSPECTION_CODE = I.INSPECTION_CODE
+        AND I.VESSEL_CODE = VL.VESSEL_CODE
+        AND VL.SAMPLE_CODE = S.SAMPLE_CODE
+        AND P.PRESCRIBE_CODE = C.PRESCRIBE_CODE
+        AND C.BARCODE = R.BARCODE
+        AND PT.PATIENT_NO = V.PATIENT_NO
+        AND R.REGISTER_CODE = CN.REGISTER_CODE
+        order by R.REGISTER_DT DESC;
+    </select>
+</mapper>
