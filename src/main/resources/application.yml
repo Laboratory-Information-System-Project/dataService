@@ -1,13 +1,13 @@
 server:
-  port: 0
+  port: 8004
 
 spring:
   application:
     name: data-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #    url: jdbc:mysql://192.168.0.189:33306/collecting?allowMultiQueries=true
-    url: jdbc:mysql://192.168.0.189:33306/data
+    url: jdbc:mysql://192.168.40.12:33306/data?allowMultiQueries=true
+#    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
     username: scott
     password: tiger
 
@@ -38,4 +38,5 @@ management:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: classpath:mappers/**/*.xml
+  mapper-locations: classpath:mapper/**/*.xml
+#  secret: user_token
