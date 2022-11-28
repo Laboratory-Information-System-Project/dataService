@@ -34,6 +34,7 @@ management:
 
 #token:
 #  expireTime: 86400000
+#  secret: user_token
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

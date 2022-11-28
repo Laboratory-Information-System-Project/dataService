@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.douzone.dataservice.mapper.patientmapper.PatientMapper">
+    <select id="patientData" resultType="com.douzone.dataservice.domain.patientdomain.PatientDomainDTO">
+        select
+        patient.patient_no,patient_name,patient_age,patient_blood_type,
+        patient_height,patient_weight,patient_address,patient_phonenumber,
+        patient_resident_number,patient_gender
+        from collecting
+        join prescribe on collecting.prescribe_code = prescribe.prescribe_code
+        join visit on prescribe.visit_code = visit.visit_code
+        join patient on visit.patient_no = patient.patient_no
+        where collecting.barcode = #{barcode};
+    </select>
+
+</mapper>
