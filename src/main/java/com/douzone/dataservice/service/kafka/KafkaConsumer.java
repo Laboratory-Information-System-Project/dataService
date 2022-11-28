@@ -1,6 +1,5 @@
 package com.douzone.dataservice.service.kafka;
 
-import com.douzone.dataservice.mapper.TestMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +36,7 @@ public class KafkaConsumer {
         List<String> keys = payload.keySet().stream().collect(Collectors.toList());
         List<Object> values = payload.values().stream().collect(Collectors.toList());
 
-        testMapper.insertTable(tableName, keys, values);
+        // testMapper.insertTable(tableName, keys, values);
 
     }
 
