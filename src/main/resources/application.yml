@@ -7,7 +7,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://192.168.0.189:33306/collecting?allowMultiQueries=true
-    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
+    url: jdbc:mysql://192.168.0.189:33306/data
     username: scott
     password: tiger
 
@@ -34,6 +34,8 @@ management:
 
 #token:
 #  expireTime: 86400000
-mybatis:
-  mapper-locations: classpath:mappers/**/**.xml
 #  secret: user_token
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/**/*.xml
