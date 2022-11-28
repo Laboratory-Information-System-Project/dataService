@@ -1,6 +1,5 @@
 package com.douzone.dataservice.service.kafka;
 
-import com.douzone.dataservice.mapper.TestMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

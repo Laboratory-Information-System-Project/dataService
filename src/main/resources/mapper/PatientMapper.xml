@@ -3,7 +3,7 @@
 
 <mapper namespace="com.douzone.dataservice.mapper.PatientMapper">
     <select id="findPatientInfoByPatientNo" resultType="com.douzone.dataservice.domain.PatientInfoDto">
-        select 환자정보.patient_no, 환자정보.patient_name, 환자정보.patient_age, 환자정보.patient_blood_type,
+        select distinct 환자정보.patient_no, 환자정보.patient_name, 환자정보.patient_age, 환자정보.patient_blood_type,
                환자정보.patient_height, 환자정보.patient_weight, 환자정보.patient_address, 환자정보.patient_phonenumber,
                환자정보.patient_resident_number, 환자정보.patient_gender, 환자정보.visit_code, 환자정보.visit_dt,
                환자정보.visit_status, 유저정보.user_name, 유저정보.department_name
@@ -20,6 +20,6 @@
                                              from visit 내원 right join prescribe 처방 on 내원.visit_code
                                              where 내원.visit_code = 처방.visit_code) 내원정보
                                            on 환자.patient_no
-                where 내원정보.patient_no = 환자.patient_no and 내원정보.patient_no = #{patientNo}) 환자정보 on 환자정보.doctor_id = 유저정보.user_id;
+                where 환자.patient_no = 내원정보.patient_no and 환자.patient_no = #{patientNo}) 환자정보 on 환자정보.doctor_id = 유저정보.user_id;
     </select>
 </mapper>

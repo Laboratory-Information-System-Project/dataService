@@ -1,4 +1,4 @@
-package com.douzone.dataservice.service;
+package com.douzone.dataservice.service.patient;
 
 import com.douzone.dataservice.domain.PatientInfoDto;
 import com.douzone.dataservice.mapper.PatientMapper;
