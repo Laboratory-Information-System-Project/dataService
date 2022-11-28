@@ -1,19 +1,25 @@
 package com.douzone.dataservice.config;
 
-import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class CORSFilter implements Filter{
-
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
 
-        System.out.println("필터링이 진행중입니다..."); //Console창에서 거슬린다면 주석처리 하셔도 됩니다!
+        System.out.println("필터링이 진행중입니다...");
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
@@ -27,5 +33,6 @@ public class CORSFilter implements Filter{
     }
 
     public void init(FilterConfig filterConfig) {}
+
     public void destory() {}
 }

@@ -10,6 +10,12 @@ spring:
 #    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
     username: scott
     password: tiger
+  
+  api:
+    naver-sms-service-id: ncp:sms:kr:296262926384:lis_system
+    naver-sms-access-key: sRz0kltEbtYeoOKw5P0B
+    naver-sms-secret-key: npLR46JcWEq9Q6Gm6PSIaJZbqzMga50VoVicUYLb
+    naver-caller-line: 01046766654
 
 #  rabbitmq:
 #    host: localhost
