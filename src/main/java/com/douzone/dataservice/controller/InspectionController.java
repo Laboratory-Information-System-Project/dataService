@@ -32,7 +32,6 @@ public class InspectionController {
         return service.getSearchInspectionType(search);
     }
 
-
     @GetMapping("/inspection-service/conclusion/search")
     public List<ConclusionDTO> getSelectConclusion(SearchDTO search){
         return service.getSelectConclusion(search);

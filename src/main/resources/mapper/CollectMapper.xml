@@ -3,18 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.douzone.dataservice.mapper.collectmapper.CollectMapper">
-<select id="colletData" resultType="com.douzone.dataservice.domain.collectdomain.CollectDomainDTO">
-    select
-    collecting.barcode,collecting_dt,collector_id,collecting.prescribe_code,
-    unsuitable_status_management.unsuitable_reason_code,
-    prescribe.status_code,
-    order_slip.order_code,order_slip.vessel_code,
-    vessel.sample_code
-    from collecting
-    left join unsuitable_status_management on collecting.barcode = unsuitable_status_management.barcode
-    join prescribe on collecting.prescribe_code = prescribe.prescribe_code
-    join order_slip on prescribe.order_code = order_slip.order_code
-    join vessel on order_slip.vessel_code = vessel.vessel_code
-    where collecting.barcode = #{barcode};
-</select>
+    <select id="colletData" resultType="com.douzone.dataservice.domain.collectdomain.CollectDomainDTO">
+        select
+        collecting.barcode,collecting_dt,collector_id,collecting.prescribe_code,
+        unsuitable_status_management.unsuitable_reason_code,
+        prescribe.status_code,
+        order_slip.order_code,order_slip.vessel_code,
+        vessel.sample_code
+        from collecting
+        left join unsuitable_status_management on collecting.barcode = unsuitable_status_management.barcode
+        join prescribe on collecting.prescribe_code = prescribe.prescribe_code
+        join order_slip on prescribe.order_code = order_slip.order_code
+        join vessel on order_slip.vessel_code = vessel.vessel_code
+        where collecting.barcode = #{barcode};
+    </select>
+
+    <select id="getPrescribeCode" resultType="String" parameterType="String">
+        select prescribe_code
+        from collecting
+        where barcode = #{barcode};
+    </select>
 </mapper>
