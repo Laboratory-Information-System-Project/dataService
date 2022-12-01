@@ -7,19 +7,27 @@
 
     <select id="getTodayRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO">
         select *
-        from register
-        where left(register_dt, 10) = left(now(), 10)
-        ORDER BY register_dt DESC
+        from register as r left join collecting as c on r.barcode = c.barcode
+            left join prescribe as p on c.prescribe_code= p.prescribe_code
+            left join order_slip as o on p.order_code = o.order_code
+            left join conclusion as con on r.register_code = con.register_code
+        where left(r.register_dt, 10) = left(now(), 10)
+        GROUP BY r.barcode
+        ORDER BY r.register_dt DESC;
     </select>
 
     <select id="getSearchRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO" parameterType="com.douzone.dataservice.domain.SearchDTO">
         select *
-        from register
-        where left(register_dt, 10) between #{stDate} and #{endDate}
+        from register as r left join collecting as c on r.barcode = c.barcode
+            left join prescribe as p on c.prescribe_code= p.prescribe_code
+            left join order_slip as o on p.order_code = o.order_code
+            left join conclusion as con on r.register_code = con.register_code
+        where left(r.register_dt, 10) between #{stDate} and #{endDate}
         <if test="barcode != null">
-            and barcode=#{barcode}
+            and r.barcode=#{barcode}
         </if>
-        ORDER BY register_dt DESC
+        GROUP BY r.barcode
+        ORDER BY r.register_dt DESC
     </select>
 
     <select id="getSearchInspectionTypeMapper" resultType="com.douzone.dataservice.domain.InspectionTypeDTO">

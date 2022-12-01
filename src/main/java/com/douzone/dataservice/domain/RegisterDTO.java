@@ -14,4 +14,6 @@ public class RegisterDTO {
     private String userId;
     private Long barcode;
     private LocalDateTime registerDt;
+    private String orderCode;
+    private Long resultNo;
 }
