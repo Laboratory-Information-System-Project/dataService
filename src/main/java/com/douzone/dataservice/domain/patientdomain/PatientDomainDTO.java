@@ -20,4 +20,7 @@ public class PatientDomainDTO {
     private String patientPhoneNumber;
     private String patientResidentNumber;
     private String patientGender;
+    private String statusCode;
+    private Date cancelBarcodeDt;
+    private Date cancelCollectingDt;
 }

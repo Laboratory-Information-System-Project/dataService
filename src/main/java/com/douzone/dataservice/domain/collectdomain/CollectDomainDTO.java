@@ -19,4 +19,6 @@ public class CollectDomainDTO {
     private String statusCode;
     private String sampleCode;
     private String unsuitableReasonCode;
+    private Date cancelBarcodeDt;
+    private Date cancelCollectingDt;
 }
