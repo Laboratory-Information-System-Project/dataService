@@ -16,9 +16,9 @@ public class PatientServiceImpl implements PatientService{
     private final PatientMapper patientMapper;
 
     @Override
-    public List<PatientInfoDto> getPatientInfoByPatientNo(Long patientNo) {
+    public List<PatientInfoDto> getPatientInfoByPatientNo(Long patientNo, String visitStatus) {
 
-        return patientMapper.findPatientInfoByPatientNo(patientNo);
+        return patientMapper.findPatientInfoByPatientNo(patientNo,visitStatus);
     }
 
     @Override

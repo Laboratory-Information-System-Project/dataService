@@ -35,7 +35,11 @@
                                              from visit 내원 right join prescribe 처방 on 내원.visit_code
                                              where 내원.visit_code = 처방.visit_code) 내원정보
                                            on 환자.patient_no
-                where 환자.patient_no = 내원정보.patient_no and 환자.patient_no = #{patientNo}) 환자정보 on 환자정보.doctor_id = 유저정보.user_id;
+                where 환자.patient_no = 내원정보.patient_no and 환자.patient_no = #{patientNo}
+                  <if test="visitStatus != '전체'.toString()">
+                      and 내원정보.visit_status = #{visitStatus}
+                  </if>
+                     )환자정보 on 환자정보.doctor_id = 유저정보.user_id;
     </select>
 
     <select id="patientData" resultType="com.douzone.dataservice.domain.patientdomain.PatientDomainDTO">

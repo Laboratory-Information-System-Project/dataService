@@ -6,10 +6,13 @@ spring:
     name: data-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.189:33306/data?allowMultiQueries=true
-#    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
-    username: scott
-    password: tiger
+#    url: jdbc:mysql://192.168.0.189:33306/data?allowMultiQueries=true
+#    username: scott
+#    password: tiger
+
+    url: jdbc:mysql://lis-project.cwjfch0v8vje.ap-northeast-2.rds.amazonaws.com/data?allowMultiQueries=true
+    username: root
+    password: 12345678
   
   api:
     naver-sms-service-id: ncp:sms:kr:296262926384:lis_system

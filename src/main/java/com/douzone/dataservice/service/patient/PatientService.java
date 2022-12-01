@@ -8,7 +8,7 @@ import com.douzone.dataservice.domain.patientdomain.PatientDomainDTO;
 import java.util.List;
 
 public interface PatientService {
-    List<PatientInfoDto> getPatientInfoByPatientNo(Long patientNo);
+    List<PatientInfoDto> getPatientInfoByPatientNo(Long patientNo, String visitStatus);
 
     List<PatientDomainDTO>patientData(String barcode);
 

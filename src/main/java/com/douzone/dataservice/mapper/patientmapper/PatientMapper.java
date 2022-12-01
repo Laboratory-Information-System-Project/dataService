@@ -12,5 +12,5 @@ public interface PatientMapper {
     List<PatientDomainDTO> patientData(String barcode);
 
     List<PatientDTO> patientAll();
-    List<PatientInfoDto> findPatientInfoByPatientNo(Long patientNo);
+    List<PatientInfoDto> findPatientInfoByPatientNo(Long patientNo, String visitStatus);
 }
