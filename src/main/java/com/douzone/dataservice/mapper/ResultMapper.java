@@ -9,6 +9,6 @@ import java.util.List;
 @Mapper
 public interface ResultMapper {
     List<ResultDTO> selectAll();
-    List<ResultDTO> selectOne(ResultSearchDTO search);
+    List<ResultDTO> getSearchResultMapper(ResultSearchDTO resultSearch);
     List<ResultDTO> searchNotDate(int text);
 }

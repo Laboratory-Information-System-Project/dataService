@@ -18,9 +18,5 @@ class DataServiceApplicationTests {
     void contextLoads() {
     }
 
-    @Test
-    void sendSms() throws JsonProcessingException, ParseException, UnsupportedEncodingException, URISyntaxException, NoSuchAlgorithmException, InvalidKeyException {
-        SmsService.sendSms("01046766654","성공?");
-    }
 
 }

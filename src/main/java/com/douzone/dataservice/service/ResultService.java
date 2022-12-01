@@ -8,7 +8,7 @@ import java.util.List;
 public interface ResultService {
     List<ResultDTO> allList();
 
-    List<ResultDTO> getResult(ResultSearchDTO search);
+    List<ResultDTO> getSearchResult(ResultSearchDTO ResultSearch);
 
     List<ResultDTO> searchNotDate(int text);
 
