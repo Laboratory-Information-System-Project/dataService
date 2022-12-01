@@ -18,8 +18,8 @@ public class ResultServiceImpl implements ResultService{
     }
 
     @Override
-    public List<ResultDTO> getResult(ResultSearchDTO search){
-        return mapper.selectOne(search);
+    public List<ResultDTO> getSearchResult(ResultSearchDTO resultSearch){
+        return mapper.getSearchResultMapper(resultSearch);
     }
 
     @Override

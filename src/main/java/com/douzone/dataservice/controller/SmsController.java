@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 
 @RestController
-@RequestMapping("/send")
+@RequestMapping("/data-service")
 @RequiredArgsConstructor
 @Controller
 public class SmsController {
@@ -30,7 +30,7 @@ public class SmsController {
         return "sendSms";
     };
 
-    @PostMapping(value = "/sms", produces="application/json", consumes = "application/json")
+    @PostMapping(value = "/send/sms", produces="application/json", consumes = "application/json")
     public ResponseEntity<SendSmsResponseDTO> test(@RequestBody MessagesRequestDTO messagesRequestDTO) throws JsonProcessingException, RestClientException, URISyntaxException, InvalidKeyException, NoSuchAlgorithmException, UnsupportedEncodingException, ParseException {
         SendSmsResponseDTO data = service.sendSms(messagesRequestDTO.getSubject(), messagesRequestDTO.getTo(), messagesRequestDTO.getContent());
         return ResponseEntity.ok().body(data);
