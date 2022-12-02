@@ -16,4 +16,5 @@ public class RegisterDTO {
     private LocalDateTime registerDt;
     private String orderCode;
     private Long resultNo;
+    private String statusCode;
 }
