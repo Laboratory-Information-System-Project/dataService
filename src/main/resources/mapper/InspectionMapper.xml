@@ -21,14 +21,14 @@
         from register as r left join collecting as c on r.barcode = c.barcode
             left join prescribe as p on c.prescribe_code= p.prescribe_code
             left join order_slip as o on p.order_code = o.order_code
-            left join conclusion as con on r.register_code = con.register_code
+--             left join conclusion as con on r.register_code = con.register_code
         <if test="barcode == null">
         where left(r.register_dt, 10) between #{stDate} and #{endDate}
         </if>
         <if test="barcode != null">
         where r.barcode LIKE concat('%',#{barcode},'%')
         </if>
-        GROUP BY r.barcode
+--         GROUP BY r.barcode
         ORDER BY r.register_dt DESC
     </select>
 
