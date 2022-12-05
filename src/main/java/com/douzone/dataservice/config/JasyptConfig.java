@@ -26,22 +26,4 @@ public class JasyptConfig {
         encryptor.setConfig(config);
         return encryptor;
     }
-
-    @Bean
-    public void printId(){
-        System.out.println(jasyptEncoding("jdbc:mysql://lis-project.cwjfch0v8vje.ap-northeast-2.rds.amazonaws.com/data?allowMultiQueries=true"));
-        System.out.println(jasyptEncoding("root"));
-        System.out.println(jasyptEncoding("12345678"));
-
-
-    }
-
-    public String jasyptEncoding(String value) {
-
-        String key = "my_jasypt_key";
-        StandardPBEStringEncryptor pbeEnc = new StandardPBEStringEncryptor();
-        pbeEnc.setAlgorithm("PBEWithMD5AndDES");
-        pbeEnc.setPassword(key);
-        return pbeEnc.encrypt(value);
-    }
 }
