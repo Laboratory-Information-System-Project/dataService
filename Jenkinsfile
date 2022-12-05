@@ -108,7 +108,7 @@ pipeline {
                     steps{
                         echo 'SSH'
 
-                        sshagent (credentials: ['35.78.53.64-ssh']) {
+                        sshagent (credentials: ['jenkins-server-privatekey']) {
 //                              sh "eval ${ssh-agent -s}"
                              sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker pull suk97/lis-dataservice'"
                              sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker rm -f lis-dataservice'"
