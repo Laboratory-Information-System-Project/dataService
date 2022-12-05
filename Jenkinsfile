@@ -4,7 +4,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 git url: 'https://github.com/Laboratory-Information-System-Project/dataService.git',
-                    branch: 'main',
+                    branch: 'develop',
                     credentialsId: 'data-service'
             }
 
