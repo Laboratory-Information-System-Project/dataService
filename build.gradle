@@ -48,3 +48,14 @@ dependencyManagement {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+docker {
+    name 'suk97/lis-dataService'
+    tag 'Dockerhub', "suk97/lis-dataService"
+    dockerfile file('Dockerfile')
+    files tasks.bootJar.outputs.files
+    buildArgs(['JAR_FILE': tasks.bootJar.outputs.files.singleFile.name])
+    labels(['key': 'value'])
+    pull true
+    noCache true
+}
