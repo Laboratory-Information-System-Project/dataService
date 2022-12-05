@@ -1,5 +1,5 @@
 pipeline {
-    agent any 	// 사용 가능한 에이전트에서 이 파이프라인 또는 해당 단계를 실행
+    agent any    // 사용 가능한 에이전트에서 이 파이프라인 또는 해당 단계를 실행
     stages {
         stage('Prepare') {
             steps {
@@ -62,7 +62,7 @@ pipeline {
         stage('Dockerizing'){
             steps{
                 sh 'echo " Image Bulid Start"'
-                sh 'docker build . -t suk97/lis-dataService'
+                sh 'docker build . -t suk97/lis-dataservice'
             }
             post {
                 success {
@@ -81,7 +81,7 @@ pipeline {
                     script {
                         docker.withRegistry('https://registry.hub.docker.com', 'docker'){
                             sh 'docker login -u "suk97" -p "ehddnr0511@" docker.io'
-                            sh 'docker push suk97/lis-dataService'
+                            sh 'docker push suk97/lis-dataservice'
                         }
                     }
             }
@@ -110,9 +110,9 @@ pipeline {
 
                         sshagent (credentials: ['35.78.53.64-ssh']) {
 //                              sh "eval ${ssh-agent -s}"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker pull suk97/lis-dataService'"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker rm -f lis-dataService'"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker run -d --name dataService -p 8080:8080 suk97/lis-dataService'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker pull suk97/lis-dataservice'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker rm -f lis-dataservice'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker run -d --name dataservice -p 8080:8080 suk97/lis-dataservice'"
                         }
 
                     }
