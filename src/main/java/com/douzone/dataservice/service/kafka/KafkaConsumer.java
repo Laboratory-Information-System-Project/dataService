@@ -23,6 +23,7 @@ public class KafkaConsumer {
     private final InspectionMapper inspectionMapper;
     private final KafkaProducer kafkaProducer;
 
+    private final CollectMapper collectMapper;
 
     @KafkaListener(topics = "sendBarcode")
     public void sendBarcode(String kafkaMessage){

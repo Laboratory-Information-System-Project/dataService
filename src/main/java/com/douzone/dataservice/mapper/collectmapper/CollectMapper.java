@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface CollectMapper {
     List<CollectDomainDTO> colletData(String barcode);
+
+    List<String> getCode (String barcode);
 }
