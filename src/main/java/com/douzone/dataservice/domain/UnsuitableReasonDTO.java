@@ -11,4 +11,5 @@ public class UnsuitableReasonDTO {
     private String unsuitableReasonCode;
     private String unsuitableReasonName;
     private String unsuitableStatusCode;
+    private String unsuitableStatusName;
 }

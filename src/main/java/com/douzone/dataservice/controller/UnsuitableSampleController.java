@@ -22,15 +22,13 @@ public class UnsuitableSampleController {
     private final UnsuitableSampleService service;
 
     @GetMapping("/sample/search/{barcode}")
-    public Map<String, Object> getSampleInfo(@PathVariable Long barcode) { return service.getSampleInfo(barcode); }
+    public List<Map<String, Object>> getSampleInfo(@PathVariable Long barcode) { return service.getSampleInfo(barcode); }
 
     @GetMapping("/prescribe/search/{barcode}")
-    public Map<String, Object> getPrescribeInfo(@PathVariable Long barcode)  {return service.getPrescribeInfo(barcode); }
+    public List<Map<String, Object>>  getPrescribeInfo(@PathVariable Long barcode)  {return service.getPrescribeInfo(barcode); }
 
     @GetMapping("/user/search/{userName}")
-    public List<Map<String, Object>> getUsersInfo(@PathVariable String userName) {
-        return service.getUsersInfo(userName);
-    }
+    public List<Map<String, Object>> getUsersInfo(@PathVariable String userName) { return service.getUsersInfo(userName); }
 
     @GetMapping("/unsuitable-reason")
     public List<UnsuitableReasonDTO> getUnsuitableReason() { return service.getUnsuitableReason(); }
