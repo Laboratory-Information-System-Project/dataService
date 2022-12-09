@@ -16,39 +16,46 @@ public class UnsuitableSampleServiceImpl implements UnsuitableSampleService {
 
     private final UnsuitableSampleMapper mapper;
     @Override
-    public Map<String, Object> getSampleInfo(Long barcode) {
-        Map<String, Object> message = new HashMap<>();
+    public List<Map<String, Object>>  getSampleInfo(Long barcode) {
+        List<Map<String, Object>> listMap = new ArrayList<>();
+        Map<String, Object> map = new HashMap<String,Object>();
         // 부적합 검체 체크
         List<UnsuitableSampleDTO> result = mapper.findUnsuitableSample(barcode);
 
         if(result.isEmpty()) {
-            Map<String, Object> sample = mapper.findSampleByBarcode(barcode);
-            if(sample == null) {
-                message.put("message", "존재하지 않는 바코드입니다.");
-                return message;
+            List<Map<String, Object>>  sample = mapper.findSampleByBarcode(barcode);
+            if(sample.isEmpty()) {
+                map.put("message", "존재하지 않는 바코드입니다.");
+                listMap.add(map);
+                return listMap;
             }
             return sample;
         } else {
-            message.put("message", "부적합 검체로 등록되어 있는 바코드입니다.");
-            return message;
+            map.put("message", "부적합 검체로 등록되어 있는 바코드입니다.");
+            listMap.add(map);
+            return listMap;
         }
     }
 
     @Override
-    public Map<String, Object> getPrescribeInfo(Long barcode) {
-        Map<String, Object> message = new HashMap<>();
+    public List<Map<String, Object>>  getPrescribeInfo(Long barcode) {
+        List<Map<String, Object>>  listMap = new ArrayList<>();
+        Map<String, Object> map = new HashMap<String,Object>();
+
         List<UnsuitableSampleDTO> result = mapper.findUnsuitableSample(barcode);
 
         if(result.isEmpty()) {
-            Map<String, Object> prescribe = mapper.findPrescribeByBarcode(barcode);
-            if(prescribe == null) {
-                message.put("message", "존재하지 않는 바코드입니다.");
-                return message;
+            List<Map<String, Object>> prescribe = mapper.findPrescribeByBarcode(barcode);
+            if(prescribe.isEmpty()) {
+                map.put("message", "존재하지 않는 바코드입니다.");
+                listMap.add(map);
+                return listMap;
             }
             return prescribe;
         } else {
-            message.put("message", "이미 부적합 검체로 등록되어 있는 바코드입니다.");
-            return message;
+            map.put("message", "이미 부적합 검체로 등록되어 있는 바코드입니다.");
+            listMap.add(map);
+            return listMap;
         }
     }
 
@@ -59,7 +66,7 @@ public class UnsuitableSampleServiceImpl implements UnsuitableSampleService {
 
         List<Map<String, Object>> users = mapper.findUsersByUsername(userName);
         if(users.isEmpty()) {
-            map.put("message", "존재하지 않은 사람입니다.");
+            map.put("message", "존재하지 않는 사용자입니다.");
             listMap.add(map);
             return listMap;
         }

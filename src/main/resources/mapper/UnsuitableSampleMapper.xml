@@ -2,38 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.douzone.dataservice.mapper.UnsuitableSampleMapper">
-    <select id="findSampleByBarcode" resultType="Map" parameterType="Long">
-        SELECT c.barcode,
+    <select id="findSampleByBarcode" resultType="HashMap" parameterType="Long">
+        SELECT c.barcode AS barcode,
             i.status_name AS statusName,
             DATE_FORMAT(c.barcode_dt,'%Y-%m-%d') AS barcodeDt,
             DATE_FORMAT(c.collecting_dt,'%Y-%m-%d') AS collectingDt,
             v.vessel_code AS vesselCode,
-                (SELECT u.user_name
-                FROM collecting AS c LEFT JOIN user AS u ON c.barcode_printer_id = u.user_id
-                WHERE c.barcode = #{barcode} ) AS barcodePrinterId,
-                (SELECT u.user_name
-                FROM collecting AS c LEFT JOIN user AS u ON c.collector_id = u.user_id
-                WHERE c.barcode = #{barcode} ) AS collectorId,
-            c.prescribe_code AS prescribeCode,
-            c.cancel_barcode_dt AS cancelBarcodeDt,
-            c.cancel_collecting_dt AS cancelCollectingDt
-        FROM collecting AS c LEFT JOIN user AS u ON c.barcode_printer_id = u.user_id  AND c.collector_id = u.user_id
-        LEFT JOIN prescribe AS p ON c.prescribe_code = p.prescribe_code
+            u.authority AS authority,
+            c.barcode_printer_id AS barcodePrinterUserId,
+            (SELECT user_name FROM user WHERE user_id=c.collector_id) AS collectorId,
+            c.collector_id AS collectorUserId,
+            u.user_name AS barcodePrinterId,
+            p.prescribe_code AS prescribeCode
+        FROM collecting AS c LEFT JOIN user AS u ON c.barcode_printer_id = u.user_id
+        LEFT JOIN prescribe AS p ON c.prescribe_code= p.prescribe_code
+        LEFT JOIN inspection_status AS i on p.status_code = i.status_code
         LEFT JOIN order_slip AS o ON p.order_code = o.order_code
-        LEFT JOIN inspection_status AS i ON p.status_code = i.status_code
-        LEFT JOIN vessel AS v ON o.vessel_code = v.vessel_code
+        LEFT JOIN vessel AS v ON v.vessel_code= o.vessel_code
         WHERE c.barcode = #{barcode};
     </select>
 
-    <select id="findPrescribeByBarcode" resultType="Map" parameterType="Long">
+    <select id="findPrescribeByBarcode" resultType="HashMap" parameterType="Long">
         SELECT p.prescribe_Code AS prescribeCode,
             u.user_name AS userName,
             o.order_name AS orderName,
             p.doctor_id AS doctorId,
             v.visit_status AS visitStatus,
             ii.status_name AS statusName,
+            u.authority AS authority,
             p.prescribe_contents AS prescribeContents,
-            p.prescribe_dt AS prescribeDt
+            DATE_FORMAT(p.prescribe_dt,'%Y-%m-%d') AS prescribeDt
         FROM collecting AS c LEFT JOIN prescribe AS p ON c.prescribe_code = p.prescribe_code
         LEFT JOIN user AS u ON p.doctor_id = u.user_id
         LEFT JOIN visit AS v ON p.visit_code = v.visit_code
@@ -48,14 +46,17 @@
             user_email AS userEmail,
             authority
         FROM user
-        WHERE authority != "검사자"  and user_name = #{userName};
+        WHERE authority != "검사자"  and user_name LIKE CONCAT('%', #{userName}, '%');
     </select>
 
     <select id="findAllUnsuitableReason" resultType="com.douzone.dataservice.domain.UnsuitableReasonDTO">
-        SELECT unsuitable_reason_code,
-            unsuitable_reason_name,
-            unsuitable_status_code
-        FROM unsuitable_reason;
+        SELECT r.unsuitable_reason_code,
+            r.unsuitable_reason_name,
+            r.unsuitable_status_code,
+            s.unsuitable_status_name
+        FROM unsuitable_reason AS r LEFT JOIN unsuitable_status AS s
+        ON r.unsuitable_status_code = s.unsuitable_status_code
+        ORDER BY unsuitable_status_code DESC;
     </select>
 
     <select id="findUnsuitableSample" resultType="com.douzone.dataservice.domain.UnsuitableSampleDTO" parameterType="Long">

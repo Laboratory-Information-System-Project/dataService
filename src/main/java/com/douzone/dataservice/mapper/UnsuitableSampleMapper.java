@@ -8,8 +8,8 @@ import java.util.Map;
 
 @Mapper
 public interface UnsuitableSampleMapper {
-    Map<String, Object> findSampleByBarcode(Long barcode);
-    Map<String, Object> findPrescribeByBarcode(Long barcode);
+    List<Map<String, Object>>  findSampleByBarcode(Long barcode);
+    List<Map<String, Object>>  findPrescribeByBarcode(Long barcode);
     List<UnsuitableSampleDTO> findUnsuitableSample(Long barcode);
     List<Map<String, Object>> findUsersByUsername(String userName);
     List<UnsuitableReasonDTO> findAllUnsuitableReason();

@@ -4,7 +4,7 @@ pipeline {
         stage('Prepare') {
             steps {
                 git url: 'https://github.com/Laboratory-Information-System-Project/dataService.git',
-                    branch: 'main',
+                    branch: 'develop',
                     credentialsId: 'data-service'
             }
 
@@ -62,7 +62,7 @@ pipeline {
         stage('Dockerizing'){
             steps{
                 sh 'echo " Image Bulid Start"'
-                sh 'docker build . -t suk97/lis-dataService'
+                sh 'docker build . -t suk97/lis-dataservice'
             }
             post {
                 success {
@@ -81,7 +81,7 @@ pipeline {
                     script {
                         docker.withRegistry('https://registry.hub.docker.com', 'docker'){
                             sh 'docker login -u "suk97" -p "ehddnr0511@" docker.io'
-                            sh 'docker push suk97/lis-dataService'
+                            sh 'docker push suk97/lis-dataservice'
                         }
                     }
             }
@@ -108,11 +108,11 @@ pipeline {
                     steps{
                         echo 'SSH'
 
-                        sshagent (credentials: ['35.78.53.64-ssh']) {
+                        sshagent (credentials: ['jenkins-server-privatekey']) {
 //                              sh "eval ${ssh-agent -s}"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker pull suk97/lis-dataService'"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker rm -f lis-dataService'"
-                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker run -d --name dataService -p 8080:8080 suk97/lis-dataService'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker pull suk97/lis-dataservice'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker rm -f lis-dataservice'"
+                             sh "ssh -o StrictHostKeyChecking=no ubuntu@35.78.53.64 'sudo docker run -d --name dataservice -p 8080:8080 suk97/lis-dataservice'"
                         }
 
                     }
