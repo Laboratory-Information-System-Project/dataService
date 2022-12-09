@@ -5,15 +5,12 @@
 
 <mapper namespace="com.douzone.dataservice.mapper.InspectionMapper">
 
-    <select id="getTodayRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO">
+    <select id="getUnregisteredMapper" resultType="com.douzone.dataservice.domain.RegisterDTO">
         select *
-        from register as r left join collecting as c on r.barcode = c.barcode
-            left join prescribe as p on c.prescribe_code= p.prescribe_code
-            left join order_slip as o on p.order_code = o.order_code
-            left join conclusion as con on r.register_code = con.register_code
-        where left(r.register_dt, 10) = left(now(), 10)
-        GROUP BY r.barcode
-        ORDER BY r.register_dt DESC;
+        from prescribe as p left join collecting as c on p.prescribe_code = c.prescribe_code
+                            left join register as r on c.barcode = r.barcode
+                            left join visit as v on p.visit_code = v.visit_code
+        where p.status_code = "D" and c.cancel_barcode_dt is null and c.cancel_collecting_dt is null;
     </select>
 
     <select id="getSearchRegisterMapper" resultType="com.douzone.dataservice.domain.RegisterDTO" parameterType="com.douzone.dataservice.domain.SearchDTO">
@@ -21,23 +18,22 @@
         from register as r left join collecting as c on r.barcode = c.barcode
             left join prescribe as p on c.prescribe_code= p.prescribe_code
             left join order_slip as o on p.order_code = o.order_code
---             left join conclusion as con on r.register_code = con.register_code
+            left join visit as v on v.visit_code = p.visit_code
+            left join patient as pat on pat.patient_no = v.patient_no
         <if test="barcode == null">
         where left(r.register_dt, 10) between #{stDate} and #{endDate}
         </if>
         <if test="barcode != null">
         where r.barcode LIKE concat('%',#{barcode},'%')
         </if>
---         GROUP BY r.barcode
         ORDER BY r.register_dt DESC
     </select>
 
-    <select id="getSearchInspectionTypeMapper" resultType="com.douzone.dataservice.domain.InspectionTypeDTO">
+    <select id="getSearchInspectionTypeMapper" resultType="com.douzone.dataservice.domain.InspectionTypeDTO" parameterType="String">
         select *
         from inspection_type
-        where order_code= (select p.order_code
-                           from collecting as c left join prescribe as p on c.prescribe_code = p.prescribe_code
-                           where barcode=${barcode});
+        where order_code = #{orderCode}
+        ORDER BY inspection_code ASC;
     </select>
 
     <select id="getSelectConclusionMapper" resultType="com.douzone.dataservice.domain.ConclusionDTO" parameterType="com.douzone.dataservice.domain.SearchDTO">
@@ -45,6 +41,12 @@
         from conclusion as c left join register as r on c.register_code = r.register_code
         where r.barcode = #{barcode}
         ORDER BY c.inspection_code ASC
+    </select>
+
+    <select id="getPrescribeCode" resultType="String" parameterType="Map">
+        select c.prescribe_code
+        from collecting as c left join prescribe as p on c.prescribe_code = p.prescribe_code left join order_slip as o on o.order_code =p.order_code
+        where c.barcode = #{barcode} and o.order_code=#{orderCode};
     </select>
 
 </mapper>

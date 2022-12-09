@@ -8,6 +8,4 @@ import java.util.List;
 @Mapper
 public interface CollectMapper {
     List<CollectDomainDTO> colletData(String barcode);
-
-    String getPrescribeCode(String barcode);
 }

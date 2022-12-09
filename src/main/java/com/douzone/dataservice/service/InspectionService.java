@@ -9,11 +9,12 @@ import java.util.List;
 
 public interface InspectionService {
 
-    List<RegisterDTO> getTodayRegister();
+    List<RegisterDTO> getUnregistered();
 
     List<RegisterDTO> getSearchRegister(SearchDTO search);
 
-    List<InspectionTypeDTO> getSearchInspectionType(SearchDTO search);
+
+    List<InspectionTypeDTO> getSearchInspectionType(String orderCode);
 
     List<ConclusionDTO> getSelectConclusion(SearchDTO search);
 

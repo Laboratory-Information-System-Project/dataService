@@ -17,10 +17,4 @@
                  join vessel on order_slip.vessel_code = vessel.vessel_code
         where collecting.barcode = #{barcode} and prescribe.status_code = 'C' and collecting.cancel_barcode_dt is null and collecting.cancel_collecting_dt is null;
     </select>
-
-    <select id="getPrescribeCode" resultType="String" parameterType="String">
-        select prescribe_code
-        from collecting
-        where barcode = #{barcode};
-    </select>
 </mapper>

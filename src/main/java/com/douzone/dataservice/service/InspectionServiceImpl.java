@@ -17,8 +17,8 @@ public class InspectionServiceImpl implements InspectionService{
     private final InspectionMapper mapper;
 
     @Override
-    public List<RegisterDTO> getTodayRegister(){
-        return mapper.getTodayRegisterMapper();
+    public List<RegisterDTO> getUnregistered(){
+        return mapper.getUnregisteredMapper();
     }
 
     @Override
@@ -28,8 +28,8 @@ public class InspectionServiceImpl implements InspectionService{
 
 
     @Override
-    public List<InspectionTypeDTO> getSearchInspectionType(SearchDTO search){
-        return mapper.getSearchInspectionTypeMapper(search);
+    public List<InspectionTypeDTO> getSearchInspectionType(String orderCode){
+        return mapper.getSearchInspectionTypeMapper(orderCode);
     }
 
     @Override
