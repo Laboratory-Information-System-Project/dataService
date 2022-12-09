@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 @RestController
 @RequestMapping("/data-service")
 @RequiredArgsConstructor
@@ -17,9 +19,18 @@ public class InspectionController {
 
     private final InspectionService service;
 
-    @GetMapping("/inspection-service/register/today")
-    public List<RegisterDTO> getTodayRegister(){
-        return service.getTodayRegister();
+
+    @GetMapping("/inspection-service/unregistered/search")
+    public List<RegisterDTO> getUnregistered(Long render){
+
+        if(render != 1){
+            try{
+                sleep(3000);
+            }catch (Exception e){
+            }
+        }
+
+        return service.getUnregistered();
     }
 
     @GetMapping("/inspection-service/register/search")
@@ -28,8 +39,8 @@ public class InspectionController {
     }
 
     @GetMapping("/inspection-service/inspection-type/search")
-    public List<InspectionTypeDTO> getSearchInspectionType(SearchDTO search){
-        return service.getSearchInspectionType(search);
+    public List<InspectionTypeDTO> getSearchInspectionType(String orderCode){
+        return service.getSearchInspectionType(orderCode);
     }
 
     @GetMapping("/inspection-service/conclusion/search")

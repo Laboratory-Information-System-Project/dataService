@@ -17,4 +17,5 @@ public class RegisterDTO {
     private String orderCode;
     private Long resultNo;
     private String statusCode;
+    private Long patientNo;
 }
