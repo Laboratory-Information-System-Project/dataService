@@ -35,4 +35,10 @@ public class KafkaConsumer {
 
         kafkaProducer.send("updateStatus","M", prescribeCode);
     }
+
+    @KafkaListener(topics = "sendBarcodeUpdate")
+    public void sendBarcodeUpdate(String kafkaMessage){
+
+        kafkaProducer.send("updateStatus","D", collectMapper.getCode(kafkaMessage));
+    }
 }
