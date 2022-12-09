@@ -17,7 +17,12 @@ public class PrescribeServiceImpl implements PrescribeService{
     public List<Map<String, Object>> getPrescribeInfoByVisitNo(Long visitNo) {
 
         List<Map<String, Object>> prescribeInfo = prescribeMapper.findPrescribeByVisitNo(visitNo);
-        prescribeInfo.stream().forEach((data)-> data.put("Bool", false));
+        prescribeInfo.forEach((data)-> {
+            data.put("Bool", false);
+            String time = data.get("prescribe_dt").toString();
+            data.put("prescribe_dt",time.replace('T',' '));
+
+        });
         return prescribeInfo;
     }
 }
