@@ -41,6 +41,8 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public List<HashMap<String, Object>> getVisitDataByPatientNo(String patientNo) {
-        return patientMapper.findVisitDataByPatientNo(patientNo);
+        List<HashMap<String, Object>> visitInfo = patientMapper.findVisitDataByPatientNo(patientNo);
+        visitInfo.forEach((map)-> map.put("VISIT_DT", map.get("VISIT_DT").toString().split("T")[0]));
+        return visitInfo;
     }
 }
