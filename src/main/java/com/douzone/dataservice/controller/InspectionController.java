@@ -25,7 +25,7 @@ public class InspectionController {
 
         if(render != 1){
             try{
-                sleep(3000);
+                sleep(4000);
             }catch (Exception e){
             }
         }
