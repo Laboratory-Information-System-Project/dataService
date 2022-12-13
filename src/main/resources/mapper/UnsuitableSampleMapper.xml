@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.douzone.dataservice.mapper.UnsuitableSampleMapper">
-    <select id="findSampleByBarcode" resultType="HashMap" parameterType="Long">
+    <select id="findSampleByBarcode" resultType="HashMap" parameterType="map">
         SELECT c.barcode AS barcode,
             i.status_name AS statusName,
             DATE_FORMAT(c.barcode_dt,'%Y-%m-%d') AS barcodeDt,
             DATE_FORMAT(c.collecting_dt,'%Y-%m-%d') AS collectingDt,
             v.vessel_code AS vesselCode,
             u.authority AS authority,
+            p.status_code AS statusCode,
             c.barcode_printer_id AS barcodePrinterUserId,
             (SELECT user_name FROM user WHERE user_id=c.collector_id) AS collectorId,
             c.collector_id AS collectorUserId,
@@ -19,10 +20,15 @@
         LEFT JOIN inspection_status AS i on p.status_code = i.status_code
         LEFT JOIN order_slip AS o ON p.order_code = o.order_code
         LEFT JOIN vessel AS v ON v.vessel_code= o.vessel_code
-        WHERE c.barcode = #{barcode};
+        <if test="authority == 'inspector'">
+        WHERE c.barcode = #{barcode} AND p.status_code = 'C';
+        </if>
+        <if test="authority == 'nurse'">
+        WHERE c.barcode = #{barcode} AND p.status_code = 'B';
+        </if>
     </select>
 
-    <select id="findPrescribeByBarcode" resultType="HashMap" parameterType="Long">
+    <select id="findPrescribeByBarcode" resultType="HashMap" parameterType="map">
         SELECT p.prescribe_Code AS prescribeCode,
             u.user_name AS userName,
             o.order_name AS orderName,
@@ -37,7 +43,12 @@
         LEFT JOIN visit AS v ON p.visit_code = v.visit_code
         LEFT JOIN order_slip AS o ON o.order_code = p.order_code
         LEFT JOIN inspection_status AS ii ON p.status_code = ii.status_code
-        WHERE c.barcode =  #{barcode};
+        <if test="authority == 'inspector'">
+            WHERE c.barcode = #{barcode} AND p.status_code = 'C';
+        </if>
+        <if test="authority == 'nurse'">
+            WHERE c.barcode = #{barcode} AND p.status_code = 'B';
+        </if>
     </select>
 
     <select id="findUsersByUsername" resultType="Map" parameterType="String">

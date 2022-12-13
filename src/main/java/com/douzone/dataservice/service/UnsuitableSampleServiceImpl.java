@@ -16,14 +16,14 @@ public class UnsuitableSampleServiceImpl implements UnsuitableSampleService {
 
     private final UnsuitableSampleMapper mapper;
     @Override
-    public List<Map<String, Object>>  getSampleInfo(Long barcode) {
+    public List<Map<String, Object>>  getSampleInfo(Long barcode, String authority) {
         List<Map<String, Object>> listMap = new ArrayList<>();
         Map<String, Object> map = new HashMap<String,Object>();
         // 부적합 검체 체크
         List<UnsuitableSampleDTO> result = mapper.findUnsuitableSample(barcode);
 
         if(result.isEmpty()) {
-            List<Map<String, Object>>  sample = mapper.findSampleByBarcode(barcode);
+            List<Map<String, Object>>  sample = mapper.findSampleByBarcode(barcode, authority);
             if(sample.isEmpty()) {
                 map.put("message", "존재하지 않는 바코드입니다.");
                 listMap.add(map);
@@ -38,14 +38,14 @@ public class UnsuitableSampleServiceImpl implements UnsuitableSampleService {
     }
 
     @Override
-    public List<Map<String, Object>>  getPrescribeInfo(Long barcode) {
+    public List<Map<String, Object>>  getPrescribeInfo(Long barcode, String authority) {
         List<Map<String, Object>>  listMap = new ArrayList<>();
         Map<String, Object> map = new HashMap<String,Object>();
 
         List<UnsuitableSampleDTO> result = mapper.findUnsuitableSample(barcode);
 
         if(result.isEmpty()) {
-            List<Map<String, Object>> prescribe = mapper.findPrescribeByBarcode(barcode);
+            List<Map<String, Object>> prescribe = mapper.findPrescribeByBarcode(barcode, authority);
             if(prescribe.isEmpty()) {
                 map.put("message", "존재하지 않는 바코드입니다.");
                 listMap.add(map);
@@ -70,7 +70,6 @@ public class UnsuitableSampleServiceImpl implements UnsuitableSampleService {
             listMap.add(map);
             return listMap;
         }
-        System.out.println(users);
         return users;
     }
 

@@ -6,10 +6,7 @@ import com.douzone.dataservice.domain.UnsuitableReasonDTO;
 import com.douzone.dataservice.domain.UserDTO;
 import com.douzone.dataservice.service.UnsuitableSampleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -21,11 +18,11 @@ public class UnsuitableSampleController {
 
     private final UnsuitableSampleService service;
 
-    @GetMapping("/sample/search/{barcode}")
-    public List<Map<String, Object>> getSampleInfo(@PathVariable Long barcode) { return service.getSampleInfo(barcode); }
+    @GetMapping("/sample/search")
+    public List<Map<String, Object>> getSampleInfo(Long barcode, String authority) { return service.getSampleInfo(barcode, authority); }
 
-    @GetMapping("/prescribe/search/{barcode}")
-    public List<Map<String, Object>>  getPrescribeInfo(@PathVariable Long barcode)  {return service.getPrescribeInfo(barcode); }
+    @GetMapping("/prescribe/search")
+    public List<Map<String, Object>>  getPrescribeInfo(Long barcode, String authority)  {return service.getPrescribeInfo(barcode, authority); }
 
     @GetMapping("/user/search/{userName}")
     public List<Map<String, Object>> getUsersInfo(@PathVariable String userName) { return service.getUsersInfo(userName); }
