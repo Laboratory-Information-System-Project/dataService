@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface UnsuitableSampleService {
-    List<Map<String, Object>> getSampleInfo(Long barcode);
-    List<Map<String, Object>>  getPrescribeInfo(Long barcode);
+    List<Map<String, Object>> getSampleInfo(Long barcode, String authority);
+    List<Map<String, Object>>  getPrescribeInfo(Long barcode, String authority);
     List<Map<String, Object>> getUsersInfo(String userName);
     List<UnsuitableReasonDTO> getUnsuitableReason();
 }
