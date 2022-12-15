@@ -1,14 +1,14 @@
 server:
-  port: 0
+  port: 8001
 
 spring:
   application:
     name: data-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.40.12:33306/data?allowMultiQueries=true
-    username: scott
-    password: tiger
+    url: jdbc:mysql://dataserver.cyzznn72tzmh.ap-northeast-1.rds.amazonaws.com:3306/data?allowMultiQueries=true
+    username: root
+    password: 12345678
 
 #    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
 #    username: scott
@@ -40,6 +40,8 @@ logging:
 eureka:
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
   client:
     register-with-eureka: true
     fetch-registry: true

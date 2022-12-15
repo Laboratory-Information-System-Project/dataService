@@ -30,5 +30,8 @@ public class UnsuitableSampleController {
     @GetMapping("/unsuitable-reason")
     public List<UnsuitableReasonDTO> getUnsuitableReason() { return service.getUnsuitableReason(); }
 
+    @GetMapping("/unsuitable/{barcode}")
+    public List<Map<String, Object>> getUnsuitInfo(@PathVariable Long barcode) { return service.getUnsuitInfo(barcode); }
+
 
 }

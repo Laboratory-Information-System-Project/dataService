@@ -13,5 +13,6 @@ public interface UnsuitableSampleService {
     List<Map<String, Object>> getSampleInfo(Long barcode, String authority);
     List<Map<String, Object>>  getPrescribeInfo(Long barcode, String authority);
     List<Map<String, Object>> getUsersInfo(String userName);
+    List<Map<String, Object>> getUnsuitInfo(Long barcode);
     List<UnsuitableReasonDTO> getUnsuitableReason();
 }

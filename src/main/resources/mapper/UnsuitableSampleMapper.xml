@@ -21,7 +21,7 @@
         LEFT JOIN order_slip AS o ON p.order_code = o.order_code
         LEFT JOIN vessel AS v ON v.vessel_code= o.vessel_code
         <if test="authority == 'inspector'">
-        WHERE c.barcode = #{barcode} AND p.status_code = 'C';
+        WHERE c.barcode = #{barcode} AND p.status_code != 'X';
         </if>
         <if test="authority == 'nurse'">
         WHERE c.barcode = #{barcode} AND p.status_code = 'B';
@@ -29,7 +29,7 @@
     </select>
 
     <select id="findPrescribeByBarcode" resultType="HashMap" parameterType="map">
-        SELECT p.prescribe_Code AS prescribeCode,
+        SELECT p.prescribe_code AS prescribeCode,
             u.user_name AS userName,
             o.order_name AS orderName,
             p.doctor_id AS doctorId,
@@ -44,7 +44,7 @@
         LEFT JOIN order_slip AS o ON o.order_code = p.order_code
         LEFT JOIN inspection_status AS ii ON p.status_code = ii.status_code
         <if test="authority == 'inspector'">
-            WHERE c.barcode = #{barcode} AND p.status_code = 'C';
+            WHERE c.barcode = #{barcode} AND p.status_code != 'X';
         </if>
         <if test="authority == 'nurse'">
             WHERE c.barcode = #{barcode} AND p.status_code = 'B';
@@ -70,13 +70,31 @@
         ORDER BY unsuitable_status_code DESC;
     </select>
 
-    <select id="findUnsuitableSample" resultType="com.douzone.dataservice.domain.UnsuitableSampleDTO" parameterType="Long">
+    <select id="findUnsuitableSample" resultType="HashMap" parameterType="list">
         SELECT unsuitable_reason_code,
             barcode,
             notified_user_id,
             notificator_id,
-            unsuitable_reason_text
+            unsuitable_reason_text,
+            prescribe_code
         FROM data.unsuitable_status_management
+        WHERE prescribe_code IN
+            <foreach collection="sample" item="item" index="index" open="(" close=")" separator=",">
+                #{item.prescribeCode}
+            </foreach>
+        ;
+    </select>
+
+    <select id="findUnsuitByBarcode" resultType="map" parameterType="long">
+        SELECT m.unsuitable_reason_code AS unsuitableReasonCode,
+            m.notified_user_id AS notifiedUserId,
+            m.notificator_id AS notificatorId,
+            m.barcode,
+            m.prescribe_code AS prescribeCode,
+            s.unsuitable_status_name AS unsuitableStatusName,
+            r.unsuitable_reason_name AS unsuitableReasonName
+        FROM unsuitable_status_management AS m LEFT JOIN unsuitable_reason AS r ON m.unsuitable_reason_code = r.unsuitable_reason_code
+        LEFT JOIN unsuitable_status AS s ON r.unsuitable_status_code = s.unsuitable_status_code
         WHERE barcode = #{barcode};
     </select>
 </mapper>
