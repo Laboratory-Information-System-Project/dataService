@@ -6,9 +6,9 @@ spring:
     name: data-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.40.12:33306/data?allowMultiQueries=true
-    username: scott
-    password: tiger
+#    url: jdbc:mysql://192.168.40.12:33306/data?allowMultiQueries=true
+#    username: scott
+#    password: tiger
 
 #    url: jdbc:mysql://localhost:3306/data?allowMultiQueries=true
 #    username: scott
@@ -17,6 +17,11 @@ spring:
 #    url: ENC(IiLK+cFViMbQWDuWJITctBGiW1VaTmAq2tPA/Xon18Wy6aoau2xdiAVFj0aAkAsWFZYV4Wv7iurDhsLIDhoh8QRVrmeqYuFN37jn4sQvDuzd30cnRobwJfewTSoVMJGw66q+/mN61el+zwu7Yngqjw==)
 #    username: ENC(1yDMKG2/IMWa9mVP+A7kqg==)
 #    password: ENC(6vfvZJczELy74aHPkl9wO7kpUFCOZPM3)
+
+    url: jdbc:mysql://dataserver.cyzznn72tzmh.ap-northeast-1.rds.amazonaws.com/data?allowMultiQueries=true
+    username: root
+    password: 12345678
+
   api:
     naver-sms-service-id: ncp:sms:kr:296262926384:lis_system
     naver-sms-access-key: sRz0kltEbtYeoOKw5P0B

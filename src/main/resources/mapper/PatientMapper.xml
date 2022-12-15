@@ -19,13 +19,13 @@
     </select>
     <select id="findPatientInfoByPatientNo" resultType="HashMap">
         SELECT P.PATIENT_NO, P.PATIENT_NAME, P.PATIENT_AGE, P.PATIENT_GENDER, P.PATIENT_RESIDENT_NUMBER, P.PATIENT_HEIGHT, P.PATIENT_WEIGHT, P.PATIENT_BLOOD_TYPE, P.PATIENT_MEMO
-        FROM PATIENT P
+        FROM patient P
         WHERE PATIENT_NO = #{patientInfo}
     </select>
 
     <select id="findPatientInfoByPatientName" resultType="HashMap">
         SELECT P.PATIENT_NO, P.PATIENT_NAME, P.PATIENT_AGE, P.PATIENT_GENDER, P.PATIENT_RESIDENT_NUMBER, P.PATIENT_HEIGHT, P.PATIENT_WEIGHT, P.PATIENT_BLOOD_TYPE, P.PATIENT_MEMO
-        FROM PATIENT P
+        FROM patient P
         WHERE PATIENT_NAME = #{patientInfo}
     </select>
 

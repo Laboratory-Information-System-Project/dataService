@@ -1,9 +1,6 @@
 package com.douzone.dataservice.service;
 
-import com.douzone.dataservice.domain.ConclusionDTO;
-import com.douzone.dataservice.domain.InspectionTypeDTO;
-import com.douzone.dataservice.domain.RegisterDTO;
-import com.douzone.dataservice.domain.SearchDTO;
+import com.douzone.dataservice.domain.*;
 import com.douzone.dataservice.domain.patientdomain.PatientDomainDTO;
 import com.douzone.dataservice.mapper.InspectionMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,17 +27,17 @@ public class InspectionServiceImpl implements InspectionService{
 
     @Override
     public List<InspectionTypeDTO> getSearchInspectionType(String orderCode){
-
-
-
-
-
         return mapper.getSearchInspectionTypeMapper(orderCode);
     }
 
     @Override
     public List<ConclusionDTO> getSelectConclusion(SearchDTO search){
         return mapper.getSelectConclusionMapper(search);
+    }
+
+
+    public List<UnsuitableStatusDTO> getUnsuitableStatus(){
+        return mapper.getUnsuitableStatus();
     }
 
 }
