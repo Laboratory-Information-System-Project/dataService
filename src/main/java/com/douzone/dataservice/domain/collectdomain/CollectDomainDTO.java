@@ -22,4 +22,5 @@ public class CollectDomainDTO {
     private Date cancelBarcodeDt;
     private Date cancelCollectingDt;
     private Long patientNo;
+    private String unsuitableStatusCode;
 }
