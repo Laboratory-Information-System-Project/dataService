@@ -52,4 +52,10 @@
         where c.barcode = #{barcode} and o.order_code=#{orderCode};
     </select>
 
+    <select id="getUnsuitableStatus" resultType="com.douzone.dataservice.domain.UnsuitableStatusDTO">
+        select *
+        from unsuitable_status_management as u
+                 left join unsuitable_reason as ur on ur.unsuitable_reason_code = u.unsuitable_reason_code;
+    </select>
+
 </mapper>

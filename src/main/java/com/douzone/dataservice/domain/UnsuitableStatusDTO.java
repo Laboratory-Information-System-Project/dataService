@@ -9,14 +9,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterDTO {
-    private Long registerCode;
-    private String inspectorId;
+public class UnsuitableStatusDTO {
     private Long barcode;
-    private LocalDateTime registerDt;
-    private String orderCode;
-    private Long resultNo;
-    private String statusCode;
-    private Long patientNo;
     private Long prescribeCode;
+    private String unsuitableStatusCode;
+    private String unsuitableReasonCode;
+    private String unsuitableReasonName;
+    private String unsuitableReasonText;
+    private LocalDateTime unsuitableUpdateDt;
+
 }
