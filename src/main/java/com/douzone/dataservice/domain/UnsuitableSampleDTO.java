@@ -13,4 +13,5 @@ public class UnsuitableSampleDTO {
     private String unsuitableReasonDetail;
     private String notifiedUserId;
     private String notificatorId;
+    private String prescribeCode;
 }
