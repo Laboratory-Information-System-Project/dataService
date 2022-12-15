@@ -15,7 +15,7 @@ public class BarcodeServiceImpl implements BarcodeService{
 
     private final BarcodeMapper barcodeMapper;
 
-    private static final String PRESCRIBE_CODE = "PRESCRIBE_CODE";
+    private static final String PRESCRIBE_CODE = "prescribe_code";
     @Override
     public List<Map<String, Object>> getBarcodeByPrescribeCodeList(List<String> prescribeCodeList) {
         List<Map<String, Object>> barcodeList = barcodeMapper.findBarcodeByPrescribeCodeList(prescribeCodeList);
@@ -29,8 +29,8 @@ public class BarcodeServiceImpl implements BarcodeService{
             Map<String, Object> current = barcodeList.get(i);
             Map<String, Object> next = barcodeList.get(i+1);
 
-            String currentBarcode = (String) current.get("BARCODE");
-            String nextBarcode = (String) next.get("BARCODE");
+            String currentBarcode = (String) current.get("barcode");
+            String nextBarcode = (String) next.get("barcode");
 
             if(!currentBarcode.equals(nextBarcode)){
                 barcodeInfoForReturn.add(next);

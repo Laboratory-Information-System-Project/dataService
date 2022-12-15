@@ -3,66 +3,88 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
 <mapper namespace="com.douzone.dataservice.mapper.ResultMapper">
     <select id="selectAll" resultType="com.douzone.dataservice.domain.ResultDTO">
-        SELECT DISTINCT V.PATIENT_NO, PT.PATIENT_NAME, PT.PATIENT_PHONENUMBER, CN.RESULT_NO, R.REGISTER_DT, S.SAMPLE_NAME, P.PRESCRIBE_DT, I.INSPECTION_NAME ,I.INSPECTION_NAME, CN.FIGURES, I.UNIT, I.BASELINE, CN.NOTE
-        FROM PATIENT AS PT, VISIT AS V, PRESCRIBE AS P, ORDER_SLIP AS O, COLLECTING AS CG, CONCLUSION AS CN, INSPECTION_TYPE AS I, VESSEL AS VL, CLASSIFICATION AS C, REGISTER AS R, SAMPLE_TYPE AS S
-        WHERE PT.PATIENT_NO = 1
-        AND PT.PATIENT_NO = V.PATIENT_NO
-        AND V.VISIT_CODE = P.VISIT_CODE
-        AND P.ORDER_CODE = O.ORDER_CODE
-        AND O.VESSEL_CODE = VL.VESSEL_CODE
-        AND P.PRESCRIBE_CODE = CG.PRESCRIBE_CODE
-        AND O.CLASSIFICATION_CODE = C.CLASSIFICATION_CODE
-        AND CG.BARCODE = R.BARCODE
-        AND R.REGISTER_CODE = CN.REGISTER_CODE
-        AND I.INSPECTION_CODE = CN.INSPECTION_CODE
-        AND VL.SAMPLE_CODE = S.SAMPLE_CODE
-        AND O.ORDER_CODE = I.ORDER_CODE
-        ORDER BY R.REGISTER_DT DESC;
+        SELECT DISTINCT v.patient_no, pt.patient_name, pt.patient_phonenumber, cn.result_no, r.register_dt, s.sample_name, p.prescribe_dt, i.INSPECTION_NAME, cn.figures, i.unit, i.baseline, cn.note
+        FROM patient as pt, visit as v, prescribe as p, order_slip as o, collecting as cg, conclusion as cn, inspection_type as i, vessel as vl, classification as c, register as r, sample_type as s
+        WHERE pt.patient_no = v.patient_no
+          AND v.visit_code = p.visit_code
+          AND p.order_code = o.order_code
+          AND o.vessel_code = vl.vessel_code
+          AND p.prescribe_code = cg.prescribe_code
+          AND o.classification_code = c.classification_code
+          AND cg.barcode = r.barcode
+          AND r.register_code = cn.register_code
+          AND i.inspection_code = cn.inspection_code
+          AND vl.sample_code = s.sample_code
+          AND o.order_code = i.order_code
+        ORDER BY r.register_dt DESC;
     </select>
 
     <select id="getSearchResultMapper" resultType="com.douzone.dataservice.domain.ResultDTO" parameterType="com.douzone.dataservice.domain.ResultSearchDTO">
-        SELECT DISTINCT V.PATIENT_NO, PT.PATIENT_NAME, PT.PATIENT_PHONENUMBER, CN.RESULT_NO, R.REGISTER_DT, S.SAMPLE_NAME, P.PRESCRIBE_DT, I.INSPECTION_NAME ,I.INSPECTION_NAME, CN.FIGURES, I.UNIT, I.BASELINE, CN.NOTE
-        FROM PATIENT AS PT, VISIT AS V, PRESCRIBE AS P, ORDER_SLIP AS O, COLLECTING AS CG, CONCLUSION AS CN, INSPECTION_TYPE AS I, VESSEL AS VL, CLASSIFICATION AS C, REGISTER AS R, SAMPLE_TYPE AS S
-        <if test='patientNo != null and radioDate == "registerDate"'>
+        SELECT DISTINCT v.patient_no, pt.patient_name, pt.patient_phonenumber, cn.result_no, r.register_dt, s.sample_name, p.prescribe_dt, i.inspection_name, cn.figures, i.unit, i.baseline, cn.note
+        FROM patient as pt, visit as v, prescribe as p, order_slip as o, collecting as cg, conclusion as cn, inspection_type as i, vessel as vl, classification as c, register as r, sample_type as s
+        <if test='patientNo != null and radioDate == "registerdate".toString()'>
             where left(register_dt, 10) between #{startDate} and #{endDate}
         </if>
-        <if test='patientNo != null and radioDate == "prescribeDate"'>
+        <if test='patientNo != null and radioDate == "prescribedate".toString()'>
             where prescribe_dt between #{startDate} and #{endDate}
         </if>
-        AND V.PATIENT_NO=#{patientNo}
-        AND PT.PATIENT_NO = V.PATIENT_NO
-        AND V.VISIT_CODE = P.VISIT_CODE
-        AND P.ORDER_CODE = O.ORDER_CODE
-        AND O.VESSEL_CODE = VL.VESSEL_CODE
-        AND P.PRESCRIBE_CODE = CG.PRESCRIBE_CODE
-        AND O.CLASSIFICATION_CODE = C.CLASSIFICATION_CODE
-        AND CG.BARCODE = R.BARCODE
-        AND R.REGISTER_CODE = CN.REGISTER_CODE
-        AND I.INSPECTION_CODE = CN.INSPECTION_CODE
-        AND VL.SAMPLE_CODE = S.SAMPLE_CODE
-        AND O.ORDER_CODE = I.ORDER_CODE
-        ORDER BY R.register_dt DESC
+        WHERE v.patient_no = #{patientNo}
+        AND pt.patient_no = v.patient_no
+        AND v.visit_code = p.visit_code
+        AND p.order_code = o.order_code
+        AND o.vessel_code = vl.vessel_code
+        AND p.prescribe_code = cg.prescribe_code
+        AND o.classification_code = c.classification_code
+        AND cg.barcode = r.barcode
+        AND r.register_code = cn.register_code
+        AND i.inspection_code = cn.inspection_code
+        AND vl.sample_code = s.sample_code
+        AND o.order_code = i.order_code
+        ORDER BY r.register_dt DESC;
 
     </select>
 
     <select id="searchNotDate" resultType="com.douzone.dataservice.domain.ResultDTO" parameterType="int">
-        SELECT DISTINCT V.PATIENT_NO, PT.PATIENT_NAME, PT.PATIENT_PHONENUMBER, CN.RESULT_NO, R.REGISTER_DT, S.SAMPLE_NAME, P.PRESCRIBE_DT, I.INSPECTION_NAME ,I.INSPECTION_NAME, CN.FIGURES, I.UNIT, I.BASELINE, CN.NOTE
-        FROM PATIENT AS PT, VISIT AS V, PRESCRIBE AS P, ORDER_SLIP AS O, COLLECTING AS CG, CONCLUSION AS CN, INSPECTION_TYPE AS I, VESSEL AS VL, CLASSIFICATION AS C, REGISTER AS R, SAMPLE_TYPE AS S
-        WHERE V.PATIENT_NO = #{text}
-        AND PT.PATIENT_NO = V.PATIENT_NO
-        AND V.VISIT_CODE = P.VISIT_CODE
-        AND P.ORDER_CODE = O.ORDER_CODE
-        AND O.VESSEL_CODE = VL.VESSEL_CODE
-        AND P.PRESCRIBE_CODE = CG.PRESCRIBE_CODE
-        AND O.CLASSIFICATION_CODE = C.CLASSIFICATION_CODE
-        AND CG.BARCODE = R.BARCODE
-        AND R.REGISTER_CODE = CN.REGISTER_CODE
-        AND I.INSPECTION_CODE = CN.INSPECTION_CODE
-        AND VL.SAMPLE_CODE = S.SAMPLE_CODE
-        AND O.ORDER_CODE = I.ORDER_CODE
-        ORDER BY R.REGISTER_DT DESC;
+        SELECT DISTINCT v.patient_no, pt.patient_name, pt.patient_phonenumber, cn.result_no, r.register_dt, s.sample_name, p.prescribe_dt, i.INSPECTION_NAME, cn.figures, i.unit, i.baseline, cn.note
+        FROM patient as pt, visit as v, prescribe as p, order_slip as o, collecting as cg, conclusion as cn, inspection_type as i, vessel as vl, classification as c, register as r, sample_type as s
+        WHERE v.patient_no = #{text}
+          AND pt.patient_no = v.patient_no
+          AND v.visit_code = p.visit_code
+          AND p.order_code = o.order_code
+          AND o.vessel_code = vl.vessel_code
+          AND p.prescribe_code = cg.prescribe_code
+          AND o.classification_code = c.classification_code
+          AND cg.barcode = r.barcode
+          AND r.register_code = cn.register_code
+          AND i.inspection_code = cn.inspection_code
+          AND vl.sample_code = s.sample_code
+          AND o.order_code = i.order_code
+        ORDER BY r.register_dt DESC;
     </select>
+
+    <select id="smsSelectAll" resultType="com.douzone.dataservice.domain.SmsDataDTO">
+        select *
+        from smsdata
+    </select>
+
+    <insert id="insert" parameterType="com.douzone.dataservice.domain.SmsDataDTO">
+        INSERT INTO smsdata(sms_title, sms_content)
+        VALUES(#{smsTitle}, #{smsContent})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM smsdata
+        WHERE sms_no = #{smsNo}
+    </delete>
+
+    <update id="update" parameterType="com.douzone.dataservice.domain.SmsDataDTO" >
+        UPDATE smsdata
+        SET sms_title = #{smsTitle}, sms_content = #{smsContent}
+        WHERE sms_no = #{smsNo}
+    </update>
+
 </mapper>
 

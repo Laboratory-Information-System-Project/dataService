@@ -2,6 +2,7 @@ package com.douzone.dataservice.service.kafka;
 
 import com.douzone.dataservice.mapper.InspectionMapper;
 import com.douzone.dataservice.mapper.collectmapper.CollectMapper;
+import com.douzone.dataservice.mapper.conclusion.SmsMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,6 +25,7 @@ public class KafkaConsumer {
     private final KafkaProducer kafkaProducer;
 
     private final CollectMapper collectMapper;
+    private final SmsMapper smsMapper;
 
     @KafkaListener(topics = "sendBarcode")
     public void sendBarcode(String kafkaMessage){
@@ -53,5 +55,10 @@ public class KafkaConsumer {
     public void sendBarcodeReUpdate(String kafkaMessage){
         kafkaProducer.send("updateStatus","X", collectMapper.getCode(kafkaMessage));
         kafkaProducer.send("updateCancellation","1",collectMapper.getCode(kafkaMessage));
+    }
+
+    @KafkaListener(topics = "smsDelete")
+    public void smsDataDelete(String kafkaMessage){
+        smsMapper.smsDelete(kafkaMessage);
     }
 }
