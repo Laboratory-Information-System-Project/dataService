@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.douzone.dataservice.mapper.collectmapper.BarcodeMapper">
     <select id="findBarcodeByPrescribeCodeList" resultType="HashMap">
-        SELECT BARCODE, PRESCRIBE_CODE
-        FROM COLLECTING
-        WHERE PRESCRIBE_CODE IN (
+        SELECT barcode, prescribe_code
+        FROM collecting
+        WHERE prescribe_code IN (
         <foreach collection="prescribeCodeList" item="item" separator=",">
             ${item}
         </foreach>

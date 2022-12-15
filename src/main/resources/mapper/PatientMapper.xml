@@ -19,21 +19,21 @@
     </select>
     <select id="findPatientInfoByPatientNo" resultType="HashMap">
         SELECT P.PATIENT_NO, P.PATIENT_NAME, P.PATIENT_AGE, P.PATIENT_GENDER, P.PATIENT_RESIDENT_NUMBER, P.PATIENT_HEIGHT, P.PATIENT_WEIGHT, P.PATIENT_BLOOD_TYPE, P.PATIENT_MEMO
-        FROM PATIENT P
+        FROM patient P
         WHERE PATIENT_NO = #{patientInfo}
     </select>
 
     <select id="findPatientInfoByPatientName" resultType="HashMap">
         SELECT P.PATIENT_NO, P.PATIENT_NAME, P.PATIENT_AGE, P.PATIENT_GENDER, P.PATIENT_RESIDENT_NUMBER, P.PATIENT_HEIGHT, P.PATIENT_WEIGHT, P.PATIENT_BLOOD_TYPE, P.PATIENT_MEMO
-        FROM PATIENT P
+        FROM patient P
         WHERE PATIENT_NAME = #{patientInfo}
     </select>
 
     <select id="findVisitDataByPatientNo" resultType="HashMap">
         SELECT DISTINCT V.VISIT_CODE, V.VISIT_DT, V.VISIT_STATUS, USER_NAME, DEPARTMENT_NAME
-        FROM VISIT V LEFT JOIN (SELECT USERINFO.USER_NAME, D.DEPARTMENT_NAME, USERINFO.VISIT_CODE
-                                FROM DEPARTMENT D LEFT JOIN (SELECT U.USER_NAME, U.DEPARTMENT_CODE, P.VISIT_CODE
-                                                             FROM USER U LEFT JOIN PRESCRIBE P
+        FROM visit V LEFT JOIN (SELECT USERINFO.USER_NAME, D.DEPARTMENT_NAME, USERINFO.VISIT_CODE
+                                FROM department D LEFT JOIN (SELECT U.USER_NAME, U.DEPARTMENT_CODE, P.VISIT_CODE
+                                                             FROM user U LEFT JOIN prescribe P
                                                                                    ON U.USER_ID = P.DOCTOR_ID) USERINFO
                                                             ON D.DEPARTMENT_CODE = USERINFO.DEPARTMENT_CODE) USERINFOS ON USERINFOS.VISIT_CODE = V.VISIT_CODE
         WHERE V.PATIENT_NO = #{patientNo}
